@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CI/CD Fixer AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🛠️ CI/CD Fixer AI</h1>
+
+        <!-- Upload Form -->
+        <form method="POST" enctype="multipart/form-data">
+            <label for="logfile">Upload CI/CD Log File:</label><br>
+            <input type="file" name="logfile" id="logfile" required>
+            <button type="submit">📤 Upload & Diagnose</button>
+        </form>
+
+        <!-- Retry Form -->
+        {% if log_content %}
+        <form action="/retry" method="POST">
+            <input type="hidden" name="log_content" value="{{ log_content }}">
+            <button type="submit">🔁 Retry Pipeline</button>
+        </form>
+        {% endif %}
+
+        <!-- Results Display -->
+        {% if filename %}
+        <div class="results">
+            <h2>📄 Log File: {{ filename }}</h2>
+            <pre class="log-box" style="background:#f9f9f9; padding: 10px;">{{ log_content | safe }}</pre>
+
+            <h2>🤖 AI Suggested Fix</h2>
+            <pre class="fix-box" style="background:#eef; padding: 10px;">{{ ai_fix }}</pre>
+        </div>
+        {% endif %}
+
+        <!-- Retry Result -->
+        {% if retry_result %}
+        <div class="retry-result">
+            <h2>🔄 Retry Result</h2>
+            <p>{{ retry_result }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

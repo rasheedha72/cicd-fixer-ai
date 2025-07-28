@@ -1,0 +1,8 @@
+<h2>🕓 Fix History</h2>
+{% for log_id, item in memory.items() %}
+  <div style="border:1px solid gray; padding:10px; margin:10px;">
+    <p><strong>⏰ {{ item.timestamp }}</strong></p>
+    <pre><code>{{ item.log_content }}</code></pre>
+    <p><strong>AI Fix:</strong> {{ item.ai_fix }}</p>
+  </div>
+{% endfor %}
